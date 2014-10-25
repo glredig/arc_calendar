@@ -2,23 +2,60 @@
   width: 100%;
   min-height: 4.5em;
   border: .2em solid #333;
+  position: relative;
+
+  .type_0 {
+    background-color: #aaffaa;
+  }
+
+  .type_1 {
+    background-color: #ffaaaa;
+  }
+
+  .type_2 {
+    background-color: #aaaaff;
+  }
+
+  .type_3 {
+    background-color: #ffaaff;
+  }
 
   .arc_calendar_menu {
     .arc_calendar_prev_month,
     .arc_calendar_next_month {
       float: left;
-      width: 20%;
+      margin-left: 2em;
+      width: 2em;
+      height: 2em;
       text-align: center;
       cursor: pointer;
+      font-size: 1.5em;
+      line-height: 2em;
+      border-radius: 50%;
+      background-color: #ddd;
+      color: #aaa;
+      box-shadow: inset 0 -.02em 0 0 #fafafa, inset 0 .06em 0 0 #999999;
+
+      &:hover {
+        background-color: #999;
+      }
     }
 
     .arc_calendar_current_month {
-      float: left;
+      // float: left;
+      margin: 0 auto;
       width: 60%;
       text-align: center;
+      height: 2em;
+      line-height: 2em;
+      font-size: 1.5em;
     }
 
     .arc_calendar_next_month {
+      float: right;
+      margin-right: 2em;
+      margin-left: auto;
+
       &:after {
         content: '';
         clear: both;
@@ -36,7 +73,7 @@
       content: '';
       clear: both;
     }
-    background-color: #eeffee;
+    background-color: #eef0ee;
     min-height: 3em;
 
     table {
@@ -69,9 +106,48 @@
       background-color: #888;
       border: .1em solid #000;
     }
+  }
 
-    .has_event {
-      background-color: #aaffaa;
+  .arc_calendar_popup_container {
+    position: absolute;
+    width: 90%;
+    min-height: 2em;
+    background-color: #fff;
+    box-shadow: 0 0 .5em 0 #333;
+    border-radius: .3em;
+    display: none;
+    padding: .5em;
+    top: 1em;
+
+    .arc_calendar_close_button {
+      position: absolute;
+      top: -.5em;
+      right: -.5em;
+      background-color: #666666;;
+      color: #ffffff;
+      border-radius: 50%;
+      height: 1.5em;
+      width: 1.5em;
+      text-align: center;
+      font-size: 1.5em;
+      line-height: 1.4em;
+      cursor: pointer;
+      border: .2em solid #ffffff;
+      box-shadow: 0 0 .2em 0 #999999;
+    }
+
+    .arc_calendar_popup_dynamic_content {
+      .arc_calendar_event_type_label {
+        padding: .2em;
+        font-weight: bold;
+      }
+
+      .arc_calendar_event_summary {
+        padding: .2em;
+        margin-top: .3em;
+        box-shadow: inset 0 0 .3em 0 #ccc;
+        background-color: #eeeeee;
+      }  
     }
   }
 }

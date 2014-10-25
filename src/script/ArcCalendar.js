@@ -6,6 +6,7 @@ var arc_calendar = (function() {
       MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
       DAYS_OF_THE_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+      EVENT_TYPES = ['Public', 'Private', 'Unavailable', 'Available'],
       container,
       blank_date_message;
 
@@ -13,6 +14,7 @@ var arc_calendar = (function() {
     this.container = config.container;
     this.menu = {};
     this.cal = {};
+    this.popup = {};
     this.cache = {};
     this.events_url = config.events_url + '.json';
   }
@@ -51,8 +53,8 @@ var arc_calendar = (function() {
       this.menu.nextMonth.className = 'arc_calendar_next_month';
 
       this.menu.container.appendChild(this.menu.prevMonth);
-      this.menu.container.appendChild(this.menu.currentMonth);
       this.menu.container.appendChild(this.menu.nextMonth);
+      this.menu.container.appendChild(this.menu.currentMonth);
       this.menu.container.appendChild(clear);
 
       this.container.appendChild(this.menu.container);
@@ -61,6 +63,22 @@ var arc_calendar = (function() {
       this.cal.container.className = 'arc_calendar_cal_container';
 
       this.container.appendChild(this.cal.container);
+
+      this.popup.node = document.createElement('div');
+      this.popup.node.className = 'arc_calendar_popup_container';
+
+      this.popup.content_node = {};
+      this.popup.content_node = document.createElement('div');
+      this.popup.content_node.className = 'arc_calendar_popup_dynamic_content';
+
+      this.popup.close_button = {};
+      this.popup.close_button.node = document.createElement('div');
+      this.popup.close_button.node.className = 'arc_calendar_close_button';
+      this.popup.close_button.node.innerHTML = 'x';
+
+      this.popup.node.appendChild(this.popup.close_button.node);
+      this.popup.node.appendChild(this.popup.content_node);
+      this.container.appendChild(this.popup.node);
 
       this.cache[this.todays.year] = {};
 
@@ -83,6 +101,9 @@ var arc_calendar = (function() {
         this.nextMonth();
       }, this));
 
+      $(this.popup.close_button.node).on('click', $.proxy(function() {
+        this.closePopup();
+      }, this));
     },   
 
     nextMonth: function() {
@@ -169,6 +190,32 @@ var arc_calendar = (function() {
 
     removeEvent: function(i) {
       this.data.splice(i, 1);
+    },
+
+    showPopup: function(events) {
+      var i = 0,
+          type_label,
+          summary;
+
+      this.popup.content_node.innerHTML = '';
+
+      for (i; i < events.length; i++) {
+        type_label = document.createElement('div');
+        type_label.className = 'arc_calendar_event_type_label type_' + events[i].accessible;
+        type_label.innerHTML = EVENT_TYPES[events[i].accessible];
+
+        summary = document.createElement('div');
+        summary.className = 'arc_calendar_event_summary';
+        summary.innerHTML = events[i].summary;
+        this.popup.content_node.appendChild(type_label);
+        this.popup.content_node.appendChild(summary);
+      }
+
+      this.popup.node.style.display = 'block';
+    },
+
+    closePopup: function() {
+      this.popup.node.style.display = 'none';
     }
   }
 
@@ -313,7 +360,10 @@ var arc_calendar = (function() {
         }
       }
 
-      this.popup = new Popup();
+      /** Set up listener */
+      $(this.content_div).on('click', $.proxy(function() {
+        this.parent.parent.showPopup(this.events);
+      }, this));
     },
 
     setDay: function(day) {
@@ -337,36 +387,6 @@ var arc_calendar = (function() {
       }
     }
   }
-
-  function Popup() {
-
-  }
-
-  Popup.prototype = {
-    init: function() {
-      this._build();
-    },
-
-    _build: function() {
-
-    },
-
-    show: function() {
-
-    },
-
-    hide: function() {
-
-    },
-
-    toggle: function() {
-
-    }
-  }
-
-  function getEvents() {
-
-  } 
 
   return {
     init: function(config) {

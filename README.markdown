@@ -8,7 +8,7 @@ Fully created within your `<div>` wrapper using JavaScript.
 * JavaScript
 
 ###Dependencies
-* None
+* jQuery
 
 ###Setup
 * Calendar requires a `<div>` element to act as a wrapper
