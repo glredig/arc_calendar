@@ -1,11 +1,9 @@
 #arc_calendar
-ArcCalendar is a dynamically generated calendar that populates events via an AJAX call to your JSON API.
+ArcCalendar is a dynamically generated JavaScript calendar that populates events via an AJAX call to your JSON API. 
+
+ArcCalendar is intended for use by entertainment providers to inform clients and fans of upcoming events & availability.
 
 Fully created within your `<div>` wrapper using JavaScript.
-
-
-###Technology Stack
-* JavaScript
 
 ###Dependencies
 * jQuery
@@ -16,4 +14,33 @@ Fully created within your `<div>` wrapper using JavaScript.
     ```
     arc_calendar.init({
       container: $('#calendar')[0]
-    })```
+    })
+    ```
+
+###JSON API
+* ArcCalendar expects event data JSON in the following format:
+
+```
+[
+  {
+    "summary" : "Event 1 summary",
+    "accessible" : 0,
+    "location" : "123 Abc Street",
+    "date" : "11-11-2020"
+  },
+  {
+    "summary" : "Event 2 summary",
+    "accessible" : 1,
+    "location" : "123 Xyz Drive",
+    "date" : "01-11-2020"
+  }
+]
+```
+
+Currently, there are four accessibility options:
+```
+0: "Public"
+1: "Private"
+2: "Unavailable"
+3: "Available" 
+```
