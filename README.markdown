@@ -10,10 +10,12 @@ Fully created within your `<div>` wrapper using JavaScript.
 
 ###Setup
 * Calendar requires a `<div>` element to act as a wrapper
-* Initialize the calendar on page load and pass wrapper `<div>` as the container:
+* Initialize the calendar on page load and pass wrapper `<div>` as the container, a url to fetch your event JSON from, and a list of event types:
     ```
     arc_calendar.init({
-      container: $('#calendar')[0]
+      container: $('#calendar')[0],
+      url: document.getElementById('calendar').getAttribute('data-url'),
+      event_types: ['Public', 'Private', 'Unavailable', 'Available'] 
     })
     ```
 
