@@ -40,7 +40,7 @@ arc_calendar.init({
 ]
 ```
 
-Currently, there are four accessibility options:
+ArcCalendar pairs the "accessible" value with the index of a type within your event_types array:
 ```
 0: "Public"
 1: "Private"
